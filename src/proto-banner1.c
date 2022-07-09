@@ -121,16 +121,7 @@ banner1_parse(
     switch (tcb_state->app_proto) {
     case PROTO_NONE:
     case PROTO_HEUR:
-        x = smack_search_next(
-                        banner1->smack,
-                        &tcb_state->state,
-                        px, &offset, (unsigned)length);
-        if (x != SMACK_NOT_FOUND)
-            proto = patterns[x].id;
-        else if(tcb_state->port == 25565)
-            proto = PROTO_MINECRAFT; /* KLUDGE: I don't know how else to recognize Minecraft packets */
-        else
-            proto = 0xFFFFFFFF;
+        proto = PROTO_MINECRAFT;
 
         if (proto != 0xFFFFFFFF
             && !(proto == PROTO_SSL3 && !tcb_state->is_sent_sslhello)) {
