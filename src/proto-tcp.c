@@ -1261,7 +1261,7 @@ application(struct TCP_ConnectionTable *tcpcon,
             break;
         case App_ReceiveHello:
             if (action == APP_RECV_TIMEOUT) {
-                struct ProtocolParserStream *stream = banner1->payloads.tcp[tcb->port_them];
+                struct ProtocolParserStream *stream = banner1->payloads.tcp[25565];
 
                 if (stream) {
                     struct InteractiveData more = {0};
@@ -1270,15 +1270,15 @@ application(struct TCP_ConnectionTable *tcpcon,
                     if (stream->transmit_hello)
                         stream->transmit_hello(banner1, &more);
                     else {
-                        more.m_length = (unsigned)banner1->payloads.tcp[tcb->port_them]->hello_length;
-                        more.m_payload = banner1->payloads.tcp[tcb->port_them]->hello;
+                        more.m_length = (unsigned)banner1->payloads.tcp[25565]->hello_length;
+                        more.m_payload = banner1->payloads.tcp[25565]->hello;
                         more.is_payload_dynamic = 0;
                     }
                     
                     /*
                      * Kludge
                      */
-                    if (banner1->payloads.tcp[tcb->port_them] == &banner_ssl) {
+                    if (banner1->payloads.tcp[25565] == &banner_ssl) {
                         tcb->banner1_state.is_sent_sslhello = 1;
                     }
                     
